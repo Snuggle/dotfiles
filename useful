@@ -1,0 +1,2 @@
+# This fixes any hardcoded icons, anywhere. :D
+sudo hardcode-fixer && sudo hardcode-tray --apply
