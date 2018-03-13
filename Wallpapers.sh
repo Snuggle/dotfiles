@@ -14,7 +14,7 @@ mkdir -p ~/Temporary
 echo "Downloading Wallpapers..."
 wallhaven -l ~/Temporary/Wallpapers -c 111 -f 110 -g 3840x3072 -m toplist -p 1 -n 72
 # Download 72 >3840x3072 top wallpapers for the month.
-# -c 111 = Any category (General, People, Anime)
+# -c 111 = Any category (General, Anime, People)
 # -f 110 = Filter for SFW, Semi-NSFW, NFSW.
 
 # Pre-downscaling images so that they don't look heavily aliased.
