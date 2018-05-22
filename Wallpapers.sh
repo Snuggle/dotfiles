@@ -9,7 +9,7 @@ if [ ! -f /usr/bin/wallhaven ]; then
   # Move to /usr/bin
 fi
 
-mkdir -p ~/Temporary
+mkdir -p ~/Temporary/Wallpapers
 
 echo "Downloading Wallpapers..."
 wallhaven -l ~/Temporary/Wallpapers -c 111 -f 110 -g 3840x3072 -m toplist -p 1 -n 72
@@ -34,5 +34,10 @@ for wallpaper in *.jpg; do
   fi
 done
 
-printf "]\n\nFinished!\n"
+# Ensure that all wallpapers are backed up and archived correctly.
+printf "]\n\nAll wallpapers scaled & downloaded. Updating rolling archive at /hdd/Storage/Archive/Wallpapers...\n"
+mkdir -p /hdd/Storage/Archive/Wallpapers
+rsync -Pauv ~/Temporary/Wallpapers /hdd/Storage/Archive/Wallpapers
+
+printf "\n\nFinished!\n"
 # Enjoy a sweet-looking desktop!
