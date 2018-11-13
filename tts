@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# This script requires an API key. Please visit: https://console.bluemix.net/services/text-to-speech/ and grab the API key.
+# Please also copy me to /usr/bin/local/tts and use me like so: 'tts "Hello, I am your new voice assistant."'
+# Voices can be changed using this API reference: https://www.ibm.com/watson/developercloud/text-to-speech/api/v1/curl.html?curl#list-voices
+# By Snuggle, with help from Simonizor and greyfade.
+
+API_KEY="<PLEASE PUT API KEY HERE!"
+
+mpv <(curl -X POST -u "apikey:$(echo "$API_KEY")" \
+  --header "Content-Type: application/json" \
+  --data '{"text": "'"$@"'"}' \
+  --output - \
+  "https://gateway-syd.watsonplatform.net/text-to-speech/api/v1/synthesize?voice=en-US_AllisonVoice")
+exit 0
