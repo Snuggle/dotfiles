@@ -1,0 +1,31 @@
+#!/bin/bash
+
+printf "Snuggle's auto-LaTeX renderer!\n"
+
+usage="\nThis is a simple bash script that constantly monitors a .tex file and recompiles it when modified.\nUsage: autotex [-h/--help] file_to_watch\n"
+
+case $1 in 
+	-h) printf "$usage"; exit 0 ;; 
+	--help) printf "$usage"; exit 0 ;;
+	help) printf "$usage"; exit 0 ;;
+esac
+
+printf "Waiting for $1 to be modified...\n\n"
+
+while :
+do
+		# Get document's hash checksum.
+		document_hash=$(md5sum "$1" | cut -d' ' -f1)
+		while :
+		do
+				# Get new hash checksum. Compare with old.
+				new_document_hash=$(md5sum "$1" | cut -d' ' -f1)
+				if [ "$new_document_hash" != "$document_hash" ]; then
+					# Document has changed; recompile it.
+					printf "Commit: $(echo $new_document_hash | cut -c1-7) @ $(date +%r) — $1 has been modified. Recompiling.\n"
+					pdflatex "$1" >/dev/null
+					break
+				fi
+				sleep 1
+		done
+done
