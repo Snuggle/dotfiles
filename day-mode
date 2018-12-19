@@ -1,0 +1,29 @@
+#!/bin/bash
+DuckDuckGoEditSQL="True"
+# If you use DuckDuckGo, this setting controls changing the theme from dark/light.
+
+echo "⌛ | Turning on the lights..."
+lookandfeeltool --apply org.kde.breeze.desktop
+sed -i 's/gtk-theme-name=Breeze-Dark$/gtk-theme-name=Breeze/' ~/.config/gtk-3.0/settings.ini
+variety --set-option lightness_mode "1" > /dev/null
+variety --next > /dev/null
+
+
+if [ "$DuckDuckGoEditSQL" = "True" ]; then
+	# Create SQL query
+	lightsql=$(cat <<EOF
+	select * from moz_cookies where baseDomain glob '*duckduckgo*';
+	UPDATE moz_cookies
+	SET value = 'g'
+	WHERE name = 'ae';
+EOF
+	)
+
+	# Execute SQL query
+	cd ~/.mozilla/firefox/*.default
+	sqlite3 cookies.sqlite <<< $lightsql > /dev/null
+fi
+
+printf "\e[1A"
+echo "🌞 | Day-mode enabled.       "
+#notify-send "Daynight" "Day-mode enabled." -i /usr/share/icons/Papirus/64x64/apps/weather.svg --urgency=low
