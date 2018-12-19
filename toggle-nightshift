@@ -1,0 +1,15 @@
+#!/bin/bash
+
+currentTime="$(date +%k)"
+if [ "$currentTime" -gt "19" ]; then
+	echo "It's night. >=8pm"
+	/home/snuggle/Scripts/nightshift/night-mode
+
+elif [ "$currentTime" -gt "7" ]; then
+	echo "It's daytime. >=8am" 
+	/home/snuggle/Scripts/nightshift/day-mode
+
+else
+	echo "It's night. <8am"
+	/home/snuggle/Scripts/nightshift/night-mode
+fi
