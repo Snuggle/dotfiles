@@ -1,0 +1,31 @@
+#!/bin/bash
+DuckDuckGoEditSQL="True"
+# If you use DuckDuckGo, this setting controls changing the theme from dark/light.
+
+echo "⌛ | Turning off the lights..."
+#lookandfeeltool --apply org.kde.breezedark.desktop
+lookandfeeltool --apply com.github.varlesh.arc-dark
+#sed -i 's/gtk-theme-name=Breeze$/gtk-theme-name=Breeze-Dark/' ~/.config/gtk-3.0/settings.ini
+sed -i 's/gtk-theme-name=Arc$/gtk-theme-name=Arc-Dark/' ~/.config/gtk-3.0/settings.ini
+variety --set-option lightness_mode "0" > /dev/null
+variety --next > /dev/null
+
+
+if [ "$DuckDuckGoEditSQL" = "True" ]; then
+	# Create SQL query
+	darksql=$(cat <<EOF
+	select * from moz_cookies where baseDomain glob '*duckduckgo*';
+	UPDATE moz_cookies
+	SET value = 'd'
+	WHERE name = 'ae';
+EOF
+	)
+
+	# Execute SQL query
+	cd ~/.mozilla/firefox/*.default
+	sqlite3 cookies.sqlite <<< $darksql > /dev/null
+fi
+
+printf "\e[1A"
+echo "🌚 | Night-mode enabled.      "
+#notify-send "Daynight" "Night-mode enabled." -i /usr/share/icons/Papirus/64x64/apps/stellarium.svg --urgency=low
