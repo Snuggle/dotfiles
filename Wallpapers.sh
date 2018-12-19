@@ -23,7 +23,7 @@ mkdir -p ~/Temporary/.Wallpapers_Scaled
 cd ~/Temporary/Wallpapers
 printf "["
 for wallpaper in *.jpg; do
-  if [ ! -f "../.Wallpapers_Scaled/$wallpaper" ]; then # If haven't already been scaled; scale.
+  if [ ! -f "../.Wallpapers_Scaled/$wallpaper" ]; then # If havent already been scaled; scale.
     printf "-"
     ffmpeg -i "$wallpaper" -vf scale=2800:-1 -q:v 1 "../.Wallpapers_Scaled/$wallpaper" -y -v quiet
     # Always scale to a higher resolution than native. Preserves sharpness.
@@ -35,9 +35,9 @@ for wallpaper in *.jpg; do
 done
 
 # Ensure that all wallpapers are backed up and archived correctly.
-printf "]\n\nAll wallpapers scaled & downloaded. Updating rolling archive at /hdd/Storage/Archive/Wallpapers...\n"
-mkdir -p /hdd/Storage/Archive/Wallpapers
-rsync -Pauv ~/Temporary/Wallpapers /hdd/Storage/Archive/Wallpapers
+printf "]\n\nAll wallpapers scaled & downloaded. Updating rolling archive at /mnt/Storage/Archive/Wallpapers...\n"
+mkdir -p /mnt/Storage/Archive/Wallpapers
+rsync -Pau ~/Temporary/Wallpapers /mnt/Storage/Archive/
 
 printf "\n\nFinished!\n"
 # Enjoy a sweet-looking desktop!
