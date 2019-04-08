@@ -12,10 +12,15 @@ fi
 mkdir -p ~/Temporary/Wallpapers
 
 echo "Downloading Wallpapers..."
-wallhaven -l ~/Temporary/Wallpapers -c 111 -f 110 -g 3840x3072 -m toplist -p 1 -n 72
+wallhaven -l /mnt/Homesweet/Photos/Wallpapers/NSFW -c 111 -f 001 -g 3840x3072 -m toplist -p 1 -n 72
+wallhaven -l /mnt/Homesweet/Photos/Wallpapers/Sketchy -c 111 -f 010 -g 3840x3072 -m toplist -p 1 -n 72
+wallhaven -l /mnt/Homesweet/Photos/Wallpapers/SFW -c 111 -f 100 -g 3840x3072 -m toplist -p 1 -n 72
 # Download 72 >3840x3072 top wallpapers for the month.
 # -c 111 = Any category (General, People, Anime)
 # -f 110 = Filter for SFW, Semi-NSFW, NFSW.
+
+
+rsync -Pau /mnt/Homesweet/Photos/Wallpapers/SFW ~/Temporary/Wallpapers
 
 # Pre-downscaling images so that they don't look heavily aliased.
 echo "Scaling images and copying to .Wallpapers_Scaled."
@@ -36,8 +41,8 @@ done
 
 # Ensure that all wallpapers are backed up and archived correctly.
 printf "]\n\nAll wallpapers scaled & downloaded. Updating rolling archive at /mnt/Storage/Archive/Wallpapers...\n"
-mkdir -p /mnt/Storage/Archive/Wallpapers
-rsync -Pau ~/Temporary/Wallpapers /mnt/Storage/Archive/
+#mkdir -p /mnt/Storage/Archive/Wallpapers
+#rsync -Pau ~/Temporary/Wallpapers /mnt/Storage/Archive/
 
 printf "\n\nFinished!\n"
 # Enjoy a sweet-looking desktop!
