@@ -32,7 +32,7 @@ printf "["
 for wallpaper in *.jpg; do
   if [ ! -f "../.Wallpapers_Scaled/$wallpaper" ]; then # If havent already been scaled; scale.
     printf "-"
-    ffmpeg -i "$wallpaper" -vf scale=2800:-1 -q:v 1 "../.Wallpapers_Scaled/$wallpaper" -y -v quiet
+    ffmpeg -i "$wallpaper" -vf scale=2800:-1 -sws_flags lanczos -q:v 1 "../.Wallpapers_Scaled/$wallpaper" -y -v quiet
     # Always scale to a higher resolution than native. Preserves sharpness.
     # Having this too high can cause severe aliasing. Especially with text/line-art.
     # 2800:-1 scale looks best for 1920x1080 displays.
